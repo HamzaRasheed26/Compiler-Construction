@@ -123,6 +123,8 @@ public:
                     tokens.push_back(Token{T_IF, word, line, col});
                 else if (word == "else")
                     tokens.push_back(Token{T_ELSE, word, line, col});
+                else if (word == "while")
+                    tokens.push_back(Token{T_WHILE, word, line, col});
                 else if (word == "return")
                     tokens.push_back(Token{T_RETURN, word, line, col});
                 else
@@ -232,17 +234,12 @@ public:
 
     bool consumeComment()
     {
-        int idx = pos;
-        int x = 0;
-        if (src[idx] == '/' && src[idx++] == '/')
+        if (src[pos] == '/' && src[pos++] == '/')
         {
-            idx += 1;
-            while (src[idx] != '\n')
+            while (pos < src.size() && src[pos] != '\n')
             {
-                idx++;
-                x++;
+                pos++;
             }
-            pos += x + 2;
             return true;
         }
         return false;
@@ -289,6 +286,9 @@ private:
         {
             parseIfStatement();
         }
+        else if (tokens[pos].type == T_WHILE) {
+            parseWhileStatement();
+        }
         else if (tokens[pos].type == T_RETURN)
         {
             parseReturnStatement();
@@ -301,6 +301,14 @@ private:
         {
             reportError("unexpected token");
         }
+    }
+
+    void parseWhileStatement() {
+        expect(T_WHILE);
+        expect(T_LPAREN);
+        parseExpression();
+        expect(T_RPAREN);
+        parseStatement();
     }
 
     void parseBlock()

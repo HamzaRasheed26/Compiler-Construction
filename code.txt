@@ -15,3 +15,8 @@ if (b > 10) {
 } else {
     return 0;
 }
+
+while(a)
+{
+    
+}
