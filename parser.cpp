@@ -57,7 +57,6 @@ private:
     size_t pos;
     int line;
     int col;
-
     bool isFloat;
 
 public:
