@@ -142,6 +142,14 @@ public:
                 continue;
             }
 
+            if(current == '/')
+            {
+                if(consumeComment())
+                {
+                    continue;
+                }
+            }
+
             switch (current)
             {
             case '=':
@@ -221,6 +229,24 @@ public:
         pos++;
         return src.substr(start, pos - start);
     }
+
+    bool consumeComment()
+    {
+        int idx = pos;
+        int x = 0;
+        if (src[idx] == '/' && src[idx++] == '/')
+        {
+            idx += 1;
+            while (src[idx] != '\n')
+            {
+                idx++;
+                x++;
+            }
+            pos += x + 2;
+            return true;
+        }
+        return false;
+    }
 };
 
 class Parser
@@ -237,6 +263,7 @@ public:
     {
         while (tokens[pos].type != T_EOF)
         {
+            //cout << tokens[pos].type << "<>" << tokens[pos].value << endl;
             parseStatement();
         }
         cout << "Parsing completed successfully! No Syntax Error" << endl;
@@ -409,6 +436,8 @@ int main(int argc, char *argv[])
         code += line + "\n";
     }
     file.close();
+
+    // cout << code << endl;
 
     Lexer lexer(code);
     vector<Token> tokens = lexer.tokenize();

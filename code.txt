@@ -1,12 +1,12 @@
 int a;
 float t;
-bool flag;
-flag =tru;
+bool flag1;
+flag2 =tru;
+//sdasjdhwhqw+
 double dd;
 string qq;
-qq = "hello";
 char rr;
-flag = true + 1;
+flag3 = true + 1;
 a = 5.44;
 int b;
 b = a + 10;
