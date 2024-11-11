@@ -1,0 +1,17 @@
+int a;
+float t;
+bool flag;
+flag =tru;
+double dd;
+string qq;
+qq = "hello";
+char rr;
+flag = true + 1;
+a = 5.44;
+int b;
+b = a + 10;
+if (b > 10) {
+    return b;
+} else {
+    return 0;
+}
